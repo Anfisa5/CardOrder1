@@ -17,12 +17,11 @@ public class CardOrder1Test {
 
     @BeforeAll
     static void setUpAll() {
-        //System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
-    void SetUp() {
+    void setup() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
@@ -34,12 +33,10 @@ public class CardOrder1Test {
     void tearDown() {
         driver.quit();
         driver = null;
-        //if (driver != null) {
-        // driver.quit();
     }
 
     @Test
-    void shouldTest1() throws  InterruptedException {
+    void shouldTest1() {
         driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+78357893012");
@@ -47,9 +44,8 @@ public class CardOrder1Test {
         driver.findElement(By.className("button__text")).click();
 
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual =driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
 
         assertEquals(expected, actual);
     }
-
 }
